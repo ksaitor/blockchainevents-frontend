@@ -1,0 +1,35 @@
+.NewEvent
+  padding-top 1em
+  margin-bottom 15vh
+
+  form .ui.image
+    cursor pointer
+    transition top .3s ease, box-shadow .3s
+    top 0
+    box-shadow 0px 0px 0px 0 rgba(34,36,38,.15)
+    &:hover
+      top -5px
+      box-shadow 0px 5px 20px 0 rgba(34,36,38,.15)
+
+
+  .free-or-paid
+    margin 5vh 0 10vh
+    .ui.segment
+      padding 1em 2em
+      transition box-shadow .3s
+      cursor pointer
+      position relative
+      border 2px solid #ebebeb
+      &:hover
+        box-shadow 0px 4px 15px 0 rgba(34,36,38,.15)
+
+      &.green
+        border 2px solid #21ba45!important
+        &:hover
+          box-shadow 0px 4px 15px 0 rgba(#21ba45,.15)
+
+    ul
+      font-size 1.1em
+      list-style none
+      margin-left 0
+      padding-left 1em
