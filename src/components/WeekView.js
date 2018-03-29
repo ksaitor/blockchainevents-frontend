@@ -3,6 +3,8 @@ import './WeekView.styl';
 import _ from 'lodash';
 import { get as ENV } from 'react-global-configuration';
 import React from 'react';
+import moment from 'moment';
+import { get } from 'axios';
 import { Container, Grid, Header, Label, Divider, Image, Message, Button, Segment, Icon } from 'semantic-ui-react'
 import { Form, Radio } from 'formsy-semantic-ui-react'
 import { Link } from 'react-router-dom'
@@ -27,22 +29,35 @@ class WeekView extends React.Component {
     super(props);
     document.title = '';
     this.state = {
+      events: [],
       city: _.upperFirst(props.match.params.city)
     }
   }
 
   componentWillMount () {
+    let that = this;
+    const { city } = this.state;
+    const startDate = moment().startOf('week').format();
+    const endDate = moment().endOf('week').format();
+
+    get(`${API}/event/find`, {
+      params: { startDate, endDate, city }
+    })
+    .then(function (res) {
+      that.setState({events: res.data})
+    })
+  }
+
+  componentDidMount () {
 
   }
 
-  componentDidMount () { }
-
   render() {
-    const { city } = this.state;
+    const { city, events } = this.state;
+    console.log(events)
     return (
       <Container className="WeekView" text>
-        <Divider horizontal />
-        <Header as='h1'>Blockchain Events<br/> in {city}</Header>
+        <Header as='h1'>Blockchain Events <br/> in {city}</Header>
         <HeadMenu />
 
         <Header as='h2' content='Monday, March 29th' />

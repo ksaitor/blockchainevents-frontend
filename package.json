@@ -24,6 +24,7 @@
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5",
     "mobx-react-router": "^4.0.1",
+    "moment": "^2.21.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-global-configuration": "^1.2.0",

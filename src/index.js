@@ -10,6 +10,7 @@ import { get as ENV } from 'react-global-configuration';
 import WeekView from './components/WeekView';
 import NewEvent from './components/NewEvent';
 import Crisp from './components/Crisp.Chat';
+import Head from './components/Head';
 import Footer from './components/Footer';
 
 if (ENV('crispChat')) {

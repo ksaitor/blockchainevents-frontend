@@ -15,7 +15,7 @@ const NewsletterSignup = ({city}) => {
       console.log('enter press here! ', event.target.value, city)
       const email = event.target.value
 
-      post(`${API}/event/create`, data)
+      post(`${API}/event/subscribe`, {email, city})
       .then(res => {
         this.setState({loading: false, error: false, submitted: true})
       })

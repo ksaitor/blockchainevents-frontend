@@ -35,7 +35,6 @@ class NewEvent extends React.Component {
   componentDidMount () { }
 
   handleChange (e, { name, value }) {
-    console.log(name, value)
     this.setState({ [name]: value })
   }
 
@@ -77,8 +76,8 @@ class NewEvent extends React.Component {
           <Form.Input name='title' label='Title' placeholder='e.g. Awesome Blockchain Event' validations="minLength:3,maxLength:60" required onChange={this.handleChange} />
           <Form.TextArea
               name='description' label='Short Description' placeholder='In 2-3 sentances, describe this event about?' rows='3'
-              validations="maxLength:310"
-              validationErrors={{ minLength: 'Up to 300 characters, please…' }}
+              validations="maxLength:510"
+              validationErrors={{ maxLength: 'Up to 500 characters, please…' }}
               required
               errorLabel={ errorLabel }
               onChange={this.handleChange} />
@@ -87,7 +86,7 @@ class NewEvent extends React.Component {
             <Form.TextArea
               name='location' label='Where exactly?' placeholder='Please be specific, where exactly the …' rows='3'
               validations="minLength:10"
-              validationErrors={{ minLength: '200 words, please…' }}
+              validationErrors={{ minLength: 'Be more specific, please…' }}
               required
               errorLabel={ errorLabel }
               onChange={this.handleChange} />
