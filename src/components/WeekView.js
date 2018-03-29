@@ -15,11 +15,18 @@ const API = ENV('apiDomain')
 const errorLabel = <Label color="red" pointing/>
 
 
+const Day = ({date, events}) => {
+  return <div>
+    <Header as='h2' content={moment(date).format('dddd, MMMM Do')} />
+    { events.map(EventOverview) }
+  </div>
+}
+
 const EventOverview = ({time, title, description, seoSlug}) => (
- <div className='EventOverview'>
-  <Link to={'/'+seoSlug}><Header as='h3'><i>{time}</i> - {title}</Header></Link>
-  <p>{description}</p>
- </div>
+  <div className='EventOverview' key={Math.random()}>
+    <Link to={'/'+seoSlug}><Header as='h3'><i>{time}</i> - {title}</Header></Link>
+    <p>{description}</p>
+  </div>
 );
 
 // @observer
@@ -48,31 +55,21 @@ class WeekView extends React.Component {
     })
   }
 
-  componentDidMount () {
-
-  }
+  componentDidMount () { }
 
   render() {
     const { city, events } = this.state;
-    console.log(events)
+    if (_.size(events) < 1) { return 'Loading…' }
+    const days = _.groupBy(events, (e) => { return moment(e.date).format('L') })
     return (
       <Container className="WeekView" text>
         <Header as='h1'>Blockchain Events <br/> in {city}</Header>
         <HeadMenu />
 
-        <Header as='h2' content='Monday, March 29th' />
-        <EventOverview {...{
-          time: '4pm',
-          title: 'Blockchain and the Decentralized Web',
-          description: 'SGInnovate and the Infocomm Media Development Authority (IMDA) are co-hosting this session for parties to come together to both learn more about the transformative potential of Blockchain and its impact on the digital economy. IMDA will also share more about its plans for a Blockchain Challenge for further exploration.'
-        }} />
+        {_.map(days, (events, date) => {
+          return <Day date={date} events={events} key={Math.random()} />
+        })}
 
-        <Header as='h2' content='Tuesday' />
-        <Header as='h2' content='Wednesday' />
-        <Header as='h2' content='Thursday' />
-        <Header as='h2' content='Friday' />
-        <Header as='h2' content='Saturday' />
-        <Header as='h2' content='Sunday' />
         <Divider horizontal />
         <HeadMenu />
       </Container>

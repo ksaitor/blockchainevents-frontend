@@ -25,7 +25,6 @@ class NewEvent extends React.Component {
       loading: false,
       error: false,
       submitted: false,
-      supportMethod: 2,
       eventType: 'event'
     }
     this.handleChange = this.handleChange.bind(this)
@@ -93,7 +92,7 @@ class NewEvent extends React.Component {
           </Form.Group>
           <Form.Group>
             <Form.Input name='time' label='Start Time' placeholder='14:00' required onChange={this.handleChange} />
-            <Form.Input name='date' label='Date' placeholder='27/04/2018'  required onChange={this.handleChange} />
+            <Form.Input name='date' label='Date' placeholder='04/27/2018'  required onChange={this.handleChange} />
           </Form.Group>
 
           <Divider horizontal />
