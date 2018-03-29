@@ -1,4 +1,4 @@
-# Crypto Jobs List Frontend
+# Blockchain Event Frontend
 
 ## Get familiar:
 - [Semantic UI](https://react.semantic-ui.com/)
@@ -7,6 +7,4 @@
 
 `npm install`
 
-`npm run start`
-
-
+`npm run dev`

@@ -34,9 +34,9 @@ class WeekView extends React.Component {
     return (
       <Container className="WeekView" text>
         <Divider horizontal />
-        <Header as='h1' content='in Singapore' />
+        <Header as='h1' content='Singapore' />
 
-        <Header as='h2' content='Monday' />
+        <Header as='h2' content='Monday, March 29th' />
           <EventOverview {...{
             time: '4pm',
             title: 'Blockchain and the Decentralized Web',

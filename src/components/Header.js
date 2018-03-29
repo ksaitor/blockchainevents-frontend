@@ -10,10 +10,7 @@ class Header extends React.Component {
     return (
       <Grid className='Header' columns='equal' divided padded>
         <Container className="WeekView" text>
-          <Link to='/'>
-            <H as='h1'>ABE</H>
-          </Link>
-          <p>All Blockchain Events in one place</p>
+          <Link to='/'><H as='h1'>ABE</H></Link>
           <Link to='/submit'>Add an Event</Link>
           <Divider horizontal />
         </Container>
