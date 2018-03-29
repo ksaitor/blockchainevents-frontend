@@ -10,7 +10,6 @@ import { get as ENV } from 'react-global-configuration';
 import WeekView from './components/WeekView';
 import NewEvent from './components/NewEvent';
 import Crisp from './components/Crisp.Chat';
-import Header from './components/Header';
 import Footer from './components/Footer';
 
 if (ENV('crispChat')) {
@@ -21,8 +20,7 @@ if (ENV('crispChat')) {
 ReactDOM.render((
   <Router history={browserHistory}>
     <div>
-      <Header />
-      <Route exact path='/' component={WeekView} />
+      <Route path='/events/:city' component={WeekView} />
       <Route path='/submit' component={NewEvent}/>
       <Footer />
     </div>

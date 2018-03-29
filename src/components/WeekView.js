@@ -3,13 +3,15 @@ import './WeekView.styl';
 import _ from 'lodash';
 import { get as ENV } from 'react-global-configuration';
 import React from 'react';
-import { Container, Grid } from 'semantic-ui-react'
-import { Header, Label, Divider, Image, Message, Button, Segment, Icon } from 'semantic-ui-react'
+import { Container, Grid, Header, Label, Divider, Image, Message, Button, Segment, Icon } from 'semantic-ui-react'
 import { Form, Radio } from 'formsy-semantic-ui-react'
 import { Link } from 'react-router-dom'
 
+import HeadMenu from './HeadMenu';
+
 const API = ENV('apiDomain')
 const errorLabel = <Label color="red" pointing/>
+
 
 const EventOverview = ({time, title, description, seoSlug}) => (
  <div className='EventOverview'>
@@ -18,30 +20,37 @@ const EventOverview = ({time, title, description, seoSlug}) => (
  </div>
 );
 
-
 // @observer
 class WeekView extends React.Component {
   // @observable title = ''
-
-  constructor(props){
+  constructor(props) {
     super(props);
     document.title = '';
+    this.state = {
+      city: _.upperFirst(props.match.params.city)
+    }
+  }
+
+  componentWillMount () {
+
   }
 
   componentDidMount () { }
 
   render() {
+    const { city } = this.state;
     return (
       <Container className="WeekView" text>
         <Divider horizontal />
-        <Header as='h1' content='Singapore' />
+        <Header as='h1'>Blockchain Events<br/> in {city}</Header>
+        <HeadMenu />
 
         <Header as='h2' content='Monday, March 29th' />
-          <EventOverview {...{
-            time: '4pm',
-            title: 'Blockchain and the Decentralized Web',
-            description: 'SGInnovate and the Infocomm Media Development Authority (IMDA) are co-hosting this session for parties to come together to both learn more about the transformative potential of Blockchain and its impact on the digital economy. IMDA will also share more about its plans for a Blockchain Challenge for further exploration.'
-          }} />
+        <EventOverview {...{
+          time: '4pm',
+          title: 'Blockchain and the Decentralized Web',
+          description: 'SGInnovate and the Infocomm Media Development Authority (IMDA) are co-hosting this session for parties to come together to both learn more about the transformative potential of Blockchain and its impact on the digital economy. IMDA will also share more about its plans for a Blockchain Challenge for further exploration.'
+        }} />
 
         <Header as='h2' content='Tuesday' />
         <Header as='h2' content='Wednesday' />
@@ -49,7 +58,8 @@ class WeekView extends React.Component {
         <Header as='h2' content='Friday' />
         <Header as='h2' content='Saturday' />
         <Header as='h2' content='Sunday' />
-        <Link to='/submit'>Add an Event</Link>
+        <Divider horizontal />
+        <HeadMenu />
       </Container>
     );
   }

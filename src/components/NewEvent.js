@@ -30,8 +30,6 @@ class NewEvent extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.imgUpload = this.imgUpload.bind(this)
-    this.updateSupportMethod = this.updateSupportMethod.bind(this)
   }
 
   componentDidMount () { }
@@ -41,32 +39,10 @@ class NewEvent extends React.Component {
     this.setState({ [name]: value })
   }
 
-  imgUpload (e) {
-    const self = this
-    const file = e.target.files[0]
-    const name = e.target.name
-    const formData = new FormData()
-    formData.append('file', file)
-    const config = { headers: { 'content-type': 'multipart/form-data' }};
-    return post(`${API}/job/imgUpload`, formData, config).then(res => {
-      this.setState({[name]: res.data.secure_url})
-    })
-  }
-
-  updateSupportMethod (supportMethod) {
-    this.setState({supportMethod})
-  }
-
-  handleStripeToken (token) {
-    console.log({token})
-    this.setState({customerToken: token})
-    this.handleSubmit()
-  }
-
   handleSubmit () {
     this.setState({loading: true})
     const data = _.omit(this.state, ['submitted', 'loading', 'error'])
-    post(`${API}/job`, data)
+    post(`${API}/event/create`, data)
     .then(res => {
       this.setState({loading: false, error: false, submitted: true})
     })
@@ -83,7 +59,7 @@ class NewEvent extends React.Component {
         {this.state.submitted ?
           <div>
             <Header as='h1' textAlign='center'>Please check your email!</Header>
-            <Header as='h3' textAlign='center'>Your job posting was submitted for review.</Header>
+            <Header as='h3' textAlign='center'>Your event was submitted.</Header>
             <Divider horizontal />
             <Divider horizontal />
             <Image src="https://reactiongifs.me/wp-content/uploads/2013/10/i-wingman-successfully-leonardo-dicaprio.gif" centered rounded size='massive' />
@@ -124,11 +100,11 @@ class NewEvent extends React.Component {
           <Divider horizontal />
 
 
-          <Form.Field>
-            <Radio name='eventType' label='Meetup' value='meetup' checked={eventType === 'meetup'} onChange={this.handleChange} />
-            <Radio name='eventType' label='Conference' value='conference' checked={eventType === 'conference'} onChange={this.handleChange} />
-            <Radio name='eventType' label='Event' value='event' checked={eventType === 'event'} onChange={this.handleChange} />
-          </Form.Field>
+          {/*<Form.Field>
+            <Form.Radio name='eventType' label='Meetup' value='meetup' checked={eventType === 'meetup'} onChange={this.handleChange} />
+            <Form.Radio name='eventType' label='Conference' value='conference' checked={eventType === 'conference'} onChange={this.handleChange} />
+            <Form.Radio name='eventType' label='Event' value='event' checked={eventType === 'event'} onChange={this.handleChange} />
+          </Form.Field>*/}
 
 
           <Divider horizontal />
@@ -141,7 +117,7 @@ class NewEvent extends React.Component {
 
           <Divider horizontal />
           <Message error header='Something went wrong' content='Please check all fields and ensure they are filled!' />
-          <Button content='Submit this Event' size='huge' color='green' />
+          <Button content='Submit this Event' size='huge' color='green' onClick={this.handleSubmit}/>
         </Form>
         }
 
