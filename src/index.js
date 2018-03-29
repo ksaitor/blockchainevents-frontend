@@ -24,7 +24,6 @@ ReactDOM.render((
       <Header />
       <Route exact path='/' component={WeekView} />
       <Route path='/submit' component={NewEvent}/>
-      <Route path='/new-event' component={NewEvent}/>
       <Footer />
     </div>
   </Router>
