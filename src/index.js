@@ -22,6 +22,7 @@ if (ENV('crispChat')) {
 ReactDOM.render((
   <Router history={browserHistory}>
     <div>
+      <Route path='/' component={WeekView} />
       <Route path='/events/:city' component={WeekView} />
       <Route path='/:seoSlug-event' component={EventView} />
       <Route path='/submit' component={NewEvent}/>
