@@ -14,9 +14,9 @@ import Crisp from './components/Crisp.Chat';
 import Head from './components/Head';
 import Footer from './components/Footer';
 
-if (ENV('crispChat')) {
-  Crisp(ENV('crispChat'))
-}
+// if (ENV('crispChat')) {
+//   Crisp(ENV('crispChat'))
+// }
 
 
 ReactDOM.render((
