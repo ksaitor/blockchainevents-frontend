@@ -3,3 +3,4 @@ node_modules
 dist
 *.sublime-workspace
 yarn.lock
+firebase-debug.log
