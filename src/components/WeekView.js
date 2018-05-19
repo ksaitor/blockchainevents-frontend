@@ -1,15 +1,15 @@
-import './WeekView.styl';
+import './WeekView.styl'
 
-import _ from 'lodash';
-import { get as ENV } from 'react-global-configuration';
-import React from 'react';
-import moment from 'moment';
-import { get } from 'axios';
+import _ from 'lodash'
+import { get as ENV } from 'react-global-configuration'
+import React from 'react'
+import moment from 'moment'
+import { get } from 'axios'
 import { Container, Grid, Header, Label, Divider, Image, Message, Button, Segment, Icon } from 'semantic-ui-react'
 import { Form, Radio } from 'formsy-semantic-ui-react'
 import { Link } from 'react-router-dom'
 
-import HeadMenu from './HeadMenu';
+import HeadMenu from './HeadMenu'
 
 const API = ENV('apiDomain')
 const errorLabel = <Label color="red" pointing/>
@@ -34,7 +34,7 @@ class WeekView extends React.Component {
   // @observable title = ''
   constructor(props) {
     super(props);
-    document.title = '';
+    document.title = ''
     this.state = {
       events: [],
       city: _.upperFirst(props.match.params.city)
