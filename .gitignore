@@ -4,3 +4,4 @@ dist
 *.sublime-workspace
 yarn.lock
 firebase-debug.log
+.runtimeconfig.json
