@@ -9,10 +9,9 @@ if (!firebase.apps.length) {
   initFirestorter({firebase});
 }
 
-import GeoLocationStore from './GeoLocationStore'
-
 export default {
-  GeoLocationStore,
+  GeoLocationStore: require('./GeoLocationStore'),
   Events: new Collection('events'),
+  Subscriber: require('./Subscriber'),
   routingStore: new RouterStore()
 }

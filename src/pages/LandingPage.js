@@ -3,7 +3,7 @@ import './LandingPage.styl'
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
-import { Container, Header, Divider, Button, Segment, Icon, Input } from 'semantic-ui-react'
+import { Container, Header, Divider, Button, Icon, Input, Step } from 'semantic-ui-react'
 import Typed from 'react-typed'
 
 const EventPreview = ({id, city, title}) => (
@@ -13,20 +13,32 @@ const EventPreview = ({id, city, title}) => (
 );
 
 @inject('Events')
+@inject('Subscriber')
 @inject('GeoLocationStore')
 @observer
 class LandingPage extends React.Component {
   componentDidMount () {
-    this.emailInput.focus()
+    if (this.emailInput) {
+      this.emailInput.focus()
+    }
   }
 
   onComplete () { this.typed2.start() }
   typed2ref (ref) { this.typed2 = ref }
 
+  _handleKeyPress (e) {
+    if (e.key === 'Enter') {
+      this.props.Subscriber.subscribe()
+    }
+  }
+
   render() {
+    const { handleChange, subscribed, subscribe, city } = this.props.Subscriber
     const events = this.props.Events.docs
     const geo = this.props.GeoLocationStore.geo
     const cityName = geo ? geo.geo1.city : 'your city'
+    handleChange(null, {name: 'city', value: cityName})
+
     return [
       <div className="LandingPage">
         <Container text textAlign='center'>
@@ -47,10 +59,20 @@ class LandingPage extends React.Component {
             ]}/>
           </Header>
 
-          <Input size='large' className='subscribe' name='email' placeholder='your@email.com' action>
-            <input ref={(c) => { this.emailInput = c;}} />
-            <Button color='green' type='submit' size='huge'>Subscribe me</Button>
-          </Input>
+          {subscribed
+            ? <Step.Group ordered size='large'>
+                <Step completed>
+                  <Step.Content>
+                    <Step.Title>Subscribed</Step.Title>
+                    <Step.Description>Check your email please</Step.Description>
+                  </Step.Content>
+                </Step>
+              </Step.Group>
+            : <Input size='large' className='subscribe' name='email' placeholder='your@email.com' action onChange={handleChange}>
+                <input ref={(c) => { this.emailInput = c;}} onKeyPress={this._handleKeyPress.bind(this)} />
+                <Button content='Subscribe me' color='green' onClick={subscribe} size='huge'/>
+              </Input>
+          }
         </Container>
       </div>,
       <div className='Events'>
