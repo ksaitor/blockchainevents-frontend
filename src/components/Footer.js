@@ -1,20 +1,22 @@
 import './Footer.styl';
 
-import React from 'react';
-import { Container, Grid, Segment } from 'semantic-ui-react'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Container, List, Icon } from 'semantic-ui-react'
 
 class Footer extends React.Component {
   render() {
     return (
-      <Container className='Footer' text>
-        <Grid columns='equal' divided padded>
-          <Grid.Row textAlign='center'>
-            <Grid.Column>
-              <Segment>Blockchain Event &copy; {(new Date()).getFullYear()}</Segment>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
+      <div className='Footer'>
+        <Container text textAlign='center'>
+          <List horizontal divided link>
+            <List.Item>Blockchain Event &copy; {(new Date()).getFullYear()}</List.Item>
+            <List.Item as={Link} to='https://cryptojobslist.typeform.com/to/klhneI' target='_blank'>
+              Submit an Event
+            </List.Item>
+          </List>
+        </Container>
+      </div>
     );
   }
 }

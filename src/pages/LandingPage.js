@@ -13,13 +13,14 @@ class LandingPage extends React.Component {
 
   render() {
     const cityName = 'Singapore' || 'your city'
+    const cityTyped = <Typed strings={[`in ${cityName}`]} showCursor={false} typeSpeed={70} />
     return (
       <Container className="LandingPage" text>
         <center>
-          <Header as='h1'>🔗 📅📍<br/>Blockchain Events<br/>in {cityName}</Header>
+          <Header as='h1'>🔗 📅📍<br/>Blockchain Events<br/> {cityTyped}</Header>
           <Header as='h2'>
           <Typed className='typed'
-            typeSpeed={70} backSpeed={10} loop
+            startDelay={1500} typeSpeed={70} backSpeed={10} loop
             strings={[
               `a Weekly Newsletter <i> </i> `,
               `It's <strong>FREE</strong>! <i> </i> `,
@@ -29,7 +30,7 @@ class LandingPage extends React.Component {
 
           <Input size='large' className='subscribe' name='email' placeholder='your@email.com' action>
             <input ref={(c) => { this.emailInput = c;}} />
-            <Button color='green' type='submit' size='huge'>Subscribe me!</Button>
+            <Button color='green' type='submit' size='huge'>Subscribe me</Button>
           </Input>
 
         </center>

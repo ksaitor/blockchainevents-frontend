@@ -1,20 +1,26 @@
+@import '../../styles/variables.styl'
+
 .LandingPage.ui
   h1
     margin-bottom 0
+    @media mobilePhones
+      font-size 2.7em
+
   h2
-    margin-top 0
+    margin-top 5vh
     color grey
 
-
   .subscribe.input
-    margin-top 5vh
     margin-bottom 5vh
     borderWidth = 3px
     *
       border-width borderWidth
       font-weight bold
+      @media mobilePhones
+        font-size 0.85em
     input, input:focus
       text-align center
       border-color #5BBD72
       margin-right - borderWidth
+
 
