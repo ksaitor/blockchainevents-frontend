@@ -1,11 +1,13 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
+const mailgun = require('./mailgun')
 const NodeGeocoder = require('node-geocoder');
 const geocoder = NodeGeocoder({
   provider: 'google',
   apiKey: functions.config().google.apikey
 });
+
 
 module.exports = functions.firestore
 .document('/eventNewsletterSubscribers')
