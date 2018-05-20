@@ -63,4 +63,5 @@ exports.date = functions.https.onRequest((req, res) => {
 
 exports.typeformNewEvent = require('./typeformNewEvent')
 exports.geoIP = require('./geoIP')
+exports.subscribeHook = require('./subscribeHook')
 // [END all]
