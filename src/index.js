@@ -19,6 +19,7 @@ import Footer from './components/Footer'
 ReactDOM.render((
   <Router history={browserHistory}>
     <div>
+      <Head />
       <Route path='/' exact component={LandingPage} />
       <Route path='/events/:city' component={WeekView} />
       <Route path='/:seoSlug-event' component={EventView} />

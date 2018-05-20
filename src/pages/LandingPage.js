@@ -1,8 +1,10 @@
 import './LandingPage.styl'
+
 import { get as ENV } from 'react-global-configuration'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Header, Divider, Button, Segment, Icon, Input } from 'semantic-ui-react'
+import Typed from 'react-typed'
 
 class LandingPage extends React.Component {
   componentDidMount () {
@@ -10,11 +12,20 @@ class LandingPage extends React.Component {
   }
 
   render() {
+    const cityName = 'Singapore' || 'your city'
     return (
       <Container className="LandingPage" text>
         <center>
-          <Header as='h1'>🔗 📅📍<br/>Blockchain Events<br/>in Singapore</Header>
-          <Header as='h2'>a Weekly Newsletter</Header>
+          <Header as='h1'>🔗 📅📍<br/>Blockchain Events<br/>in {cityName}</Header>
+          <Header as='h2'>
+          <Typed className='typed'
+            typeSpeed={70} backSpeed={10} loop
+            strings={[
+              `a Weekly Newsletter <i> </i> `,
+              `It's <strong>FREE</strong>! <i> </i> `,
+              `No spam. Unsubscribe any time.`
+            ]}/>
+          </Header>
 
           <Input size='large' className='subscribe' name='email' placeholder='your@email.com' action>
             <input ref={(c) => { this.emailInput = c;}} />
@@ -23,10 +34,6 @@ class LandingPage extends React.Component {
 
         </center>
 
-        <Divider />
-        <center>
-          <Button color='blue' content='Post an Event' as={Link} to='https://cryptojobslist.typeform.com/to/klhneI' target='_blank' />
-        </center>
       </Container>
     );
   }

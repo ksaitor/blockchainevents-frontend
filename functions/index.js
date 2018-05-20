@@ -1,5 +1,7 @@
 // [START functionsimport]
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
 // [END functionsimport]
 // [START additionalimports]
 // Moments library to format dates.
@@ -60,4 +62,5 @@ exports.date = functions.https.onRequest((req, res) => {
 });
 
 exports.typeformNewEvent = require('./typeformNewEvent')
+exports.geoIP = require('./geoIP')
 // [END all]
