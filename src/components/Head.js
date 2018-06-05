@@ -10,7 +10,7 @@ const Head = () => {
   return (
     <Container>
       <Menu secondary>
-        <Menu.Menu position='right'>
+        <Menu.Menu position='right' {...{style: {marginTop: 10}}}>
           <Menu.Item content={newEventBtn} />
         </Menu.Menu>
       </Menu>
