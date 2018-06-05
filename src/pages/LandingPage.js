@@ -23,7 +23,9 @@ class LandingPage extends React.Component {
     }
   }
 
-  onComplete () { this.typed2.start() }
+  onComplete () {
+    // this.typed2.start()
+  }
   typed2ref (ref) { this.typed2 = ref }
 
   _handleKeyPress (e) {
@@ -37,25 +39,27 @@ class LandingPage extends React.Component {
     const events = this.props.Events.docs
     const geo = this.props.GeoLocationStore.geo
     const cityName = geo ? geo.geo1.city : 'your city'
+    const coutryName = geo ? geo.geo1.country : ''
+    const fullLocationName = `${cityName}, ${coutryName}`
     handleChange(null, {name: 'city', value: cityName})
-
     return [
       <div className="LandingPage">
         <Container text textAlign='center'>
           <Header as='h1'>
             🔗 📅📍<br/>Blockchain Events<br/>
-            <Typed strings={[`in ${cityName}!`, `in ${cityName}`]} showCursor={false} typeSpeed={70} onComplete={this.onComplete.bind(this)} />
+            <Typed strings={[`in ${cityName}`, `in ${fullLocationName}`]} showCursor={false} typeSpeed={70} onComplete={this.onComplete.bind(this)} />
           </Header>
           <Header as='h2'>
           <Typed className='typed'
-            stopped
+            key={Math.random()}
+             showCursor={false}
             typedRef={this.typed2ref.bind(this)}
             startDelay={3000} typeSpeed={70} backSpeed={10} loop
             fadeOut={true}
             strings={[
-              `a Weekly Newsletter <i> </i> `,
-              `It's <strong>FREE</strong>! <i> </i> `,
-              `No spam. Unsubscribe any time.`
+              `a Weekly Newsletter <i>🎉</i> `,
+              `It's <strong>FREE.</strong> <i> </i> `,
+              `No spam. Guaranteed.`
             ]}/>
           </Header>
 
