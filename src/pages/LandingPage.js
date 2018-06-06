@@ -22,11 +22,13 @@ class LandingPage extends React.Component {
       this.emailInput.focus()
     }
   }
+  typed1ref (ref) { this.typed1 = ref }
+  typed2ref (ref) { this.typed2 = ref }
 
   onComplete () {
     // this.typed2.start()
   }
-  typed2ref (ref) { this.typed2 = ref }
+
 
   _handleKeyPress (e) {
     if (e.key === 'Enter') {
@@ -34,33 +36,52 @@ class LandingPage extends React.Component {
     }
   }
 
+  changeLocation () {
+    const { handleChange, city } = this.props.Subscriber
+    const loc = prompt(`For what city you'd like to receive updates?`)
+    handleChange(null, {name: 'city', value: loc})
+    this.typed1.reset()
+  }
+
   render() {
     const { handleChange, subscribed, subscribe, city } = this.props.Subscriber
     const events = this.props.Events.docs
+
     const geo = this.props.GeoLocationStore.geo
-    const cityName = geo ? geo.geo1.city : 'your city'
-    const coutryName = geo ? geo.geo1.country : ''
-    const fullLocationName = `${cityName}, ${coutryName}`
-    handleChange(null, {name: 'city', value: cityName})
+    let fullLocationName =  'your city'
+    if (city) {
+      fullLocationName = city
+    } else if (!city && geo && geo.geo1) {
+      fullLocationName = `${geo.geo1.city}, ${geo.geo1.country}`
+      handleChange(null, {name: 'city', value: fullLocationName})
+    }
+
     return [
       <div className="LandingPage">
         <Container text textAlign='center'>
           <Header as='h1'>
             🔗 📅📍<br/>Blockchain Events<br/>
-            <Typed strings={[`in ${cityName}`, `in ${fullLocationName}`]} showCursor={false} typeSpeed={70} onComplete={this.onComplete.bind(this)} />
+            in  <span className='cityName' onClick={this.changeLocation.bind(this)}>
+              <Typed
+                typedRef={this.typed1ref.bind(this)}
+                strings={[fullLocationName, fullLocationName, fullLocationName]}
+                showCursor={false} typeSpeed={70}
+                onComplete={this.onComplete.bind(this)} />
+            </span>
           </Header>
+
           <Header as='h2'>
-          <Typed className='typed'
-            key={Math.random()}
-             showCursor={false}
-            typedRef={this.typed2ref.bind(this)}
-            startDelay={3000} typeSpeed={70} backSpeed={10} loop
-            fadeOut={true}
-            strings={[
-              `a Weekly Newsletter <i>🎉</i> `,
-              `It's <strong>FREE.</strong> <i> </i> `,
-              `No spam. Guaranteed.`
-            ]}/>
+            <Typed className='typed'
+              key={Math.random()}
+              showCursor={false}
+              typedRef={this.typed2ref.bind(this)}
+              startDelay={3000} typeSpeed={70} backSpeed={10} loop
+              fadeOut={true}
+              strings={[
+                `a Weekly Newsletter <i>🎉</i> `,
+                `It's <strong>FREE.</strong> <i> </i> `,
+                `No spam. Guaranteed.`
+              ]}/>
           </Header>
 
           {subscribed
