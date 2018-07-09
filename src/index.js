@@ -31,7 +31,7 @@ ReactDOM.render((
       <div>
         <Head />
         <Route path='/' exact component={LandingPage} />
-        <Route path='/events/:city' component={WeekView} />
+        <Route path='/in/:city' component={WeekView} />
         <Route path='/:seoSlug-event' component={EventView} />
         <Route path='/submit' component={NewEvent}/>
         <Footer />

@@ -3,7 +3,7 @@ import './LandingPage.styl'
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
-import { Container, Header, Divider, Button, Icon, Input, Step } from 'semantic-ui-react'
+import { Container, Header, Divider, Button, Icon, Input, Step, Popup } from 'semantic-ui-react'
 import Typed from 'react-typed'
 
 const EventPreview = ({id, city, title}) => (
@@ -38,7 +38,7 @@ class LandingPage extends React.Component {
 
   changeLocation () {
     const { handleChange, city } = this.props.Subscriber
-    const loc = prompt(`For what city you'd like to receive updates?`)
+    const loc = prompt(`What city you'd like to receive updates for?`)
     handleChange(null, {name: 'city', value: loc})
     this.typed1.reset()
   }
@@ -61,13 +61,17 @@ class LandingPage extends React.Component {
         <Container text textAlign='center'>
           <Header as='h1'>
             🔗 📅📍<br/>Blockchain Events<br/>
-            in  <span className='cityName' onClick={this.changeLocation.bind(this)}>
+            in  <Popup trigger={<span className='cityName' onClick={this.changeLocation.bind(this)}>
               <Typed
                 typedRef={this.typed1ref.bind(this)}
                 strings={[fullLocationName, fullLocationName, fullLocationName]}
                 showCursor={false} typeSpeed={70}
                 onComplete={this.onComplete.bind(this)} />
-            </span>
+            </span>}
+            content='Change Location'
+            position='bottom center'
+            size='tiny'
+            inverted />
           </Header>
 
           <Header as='h2'>
