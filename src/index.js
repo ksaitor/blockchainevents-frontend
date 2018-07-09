@@ -23,15 +23,13 @@ import Footer from './components/Footer'
 import stores from './stores'
 const history = syncHistory(createBrowserHistory(), stores.routingStore)
 
-stores.GeoLocationStore.fetch()
-
 ReactDOM.render((
   <Provider {...stores}>
     <Router key={Math.random()} history={history}>
       <div>
         <Head />
         <Route path='/' exact component={LandingPage} />
-        <Route path='/in/:city' component={WeekView} />
+        <Route path='/in/:city' component={LandingPage} />
         <Route path='/:seoSlug-event' component={EventView} />
         <Route path='/submit' component={NewEvent}/>
         <Footer />

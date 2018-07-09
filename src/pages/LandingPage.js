@@ -17,6 +17,10 @@ const EventPreview = ({id, city, title}) => (
 @inject('GeoLocationStore')
 @observer
 class LandingPage extends React.Component {
+  constructor (props) {
+    super()
+    props.GeoLocationStore.fetch()
+  }
   componentDidMount () {
     if (this.emailInput) {
       this.emailInput.focus()
@@ -58,10 +62,10 @@ class LandingPage extends React.Component {
 
     return [
       <div className="LandingPage">
-        <Container text textAlign='center'>
+        <Container text>
           <Header as='h1'>
-            🔗 📅📍<br/>Blockchain Events<br/>
-            in  <Popup trigger={<span className='cityName' onClick={this.changeLocation.bind(this)}>
+            🔗 📅📍<br/>Blockchain Events in<br/>
+            <Popup trigger={<span className='cityName' onClick={this.changeLocation.bind(this)}>
               <Typed
                 typedRef={this.typed1ref.bind(this)}
                 strings={[fullLocationName, fullLocationName, fullLocationName]}
@@ -82,9 +86,9 @@ class LandingPage extends React.Component {
               startDelay={3000} typeSpeed={70} backSpeed={10} loop
               fadeOut={true}
               strings={[
-                `a Weekly Newsletter <i>🎉</i> `,
-                `It's <strong>FREE.</strong> <i> </i> `,
-                `No spam. Guaranteed.`
+                `a Weekly Newsletter 📨 `,
+                `It's <strong>🤑 FREE.</strong> <i> </i> `,
+                `No spam. 👍 Guaranteed.`
               ]}/>
           </Header>
 

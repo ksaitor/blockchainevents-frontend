@@ -11,13 +11,16 @@
       border-bottom 3px solid transparent
       transition border-color .3s
       border-radius 8px
-      transition-property padding, box-shadow, background-color
+      transition-property padding, box-shadow, background-color, margin
       transition-duration Speed
       transition-timing-function ease-out
+      padding 0 0.4em
+      margin-left -0.4em
+      box-shadow 0px 10px 15px #ddd
       &:hover
         background-color white
-        padding 0 0.4em
-        box-shadow -5px 20px 55px #bbb
+        box-shadow -5px 30px 55px #aaa
+        filter scale(1.2)
 
   h2
     margin-top 6vh
@@ -32,7 +35,6 @@
       @media mobilePhones
         font-size 0.85em
     input, input:focus
-      text-align center
       border-color #5BBD72
       margin-right - borderWidth
 
@@ -44,6 +46,7 @@
   .typed
     display inline-block
     min-height 1em
+    margin-left 0.5em
 
 
 .Events
