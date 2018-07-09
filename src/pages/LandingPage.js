@@ -4,11 +4,17 @@ import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
 import { Container, Header, Divider, Button, Icon, Input, Step, Popup } from 'semantic-ui-react'
+import Moment from 'moment'
 import Typed from 'react-typed'
 
-const EventPreview = ({id, city, title}) => (
+const EventPreview = ({id, title, description, url, time, when, city}) => (
   <div className='EventPreview' key={id}>
-    <p>{title}</p>
+    <Header as='h3'>
+      <a href={url} target='_blank'>
+        {Moment(time, 'HHmm').isValid() ? Moment(time, 'HHmm').format('h:mma') : null} - {title}
+      </a>
+    </Header>
+    <p>{description}</p>
   </div>
 );
 
@@ -72,7 +78,7 @@ class LandingPage extends React.Component {
                 showCursor={false} typeSpeed={70}
                 onComplete={this.onComplete.bind(this)} />
             </span>}
-            content='Change Location'
+            content='Change your city'
             position='bottom center'
             size='tiny'
             inverted />
@@ -103,14 +109,15 @@ class LandingPage extends React.Component {
               </Step.Group>
             : <Input size='large' className='subscribe' name='email' placeholder='your@email.com' action onChange={handleChange}>
                 <input ref={(c) => { this.emailInput = c;}} onKeyPress={this._handleKeyPress.bind(this)} />
-                <Button content='Subscribe me' color='green' onClick={subscribe} size='huge'/>
+                <Button content='Subscribe' color='green' onClick={subscribe} size='huge'/>
               </Input>
           }
         </Container>
       </div>,
       <div className='Events'>
         <Container text>
-          {false && events.map(e => <EventPreview key={e.id} {...e.data} />)}
+          <Header as='h2' content='Events this week:' />
+          {events.map(e => <EventPreview key={e.id} {...e.data} />)}
         </Container>
       </div>
     ]
