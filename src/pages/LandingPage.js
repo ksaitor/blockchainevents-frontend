@@ -9,14 +9,17 @@ import Typed from 'react-typed'
 
 const EventPreview = ({id, title, description, url, time, when, formattedCity}) => (
   <div className='EventPreview' key={id}>
-    {moment(when).format('dddd, Do MMMM')}
     <Header as='h3'>
       <a href={url} target='_blank'>
         {moment(time, 'Hmm').isValid() ? moment(time, 'Hmm').format('h:mma') : null} - {title}
       </a>
     </Header>
-    <p>{description}</p>
-    <p>{formattedCity}</p>
+    <p>
+      {description}
+      <br/>
+      {moment(when).format('dddd, Do MMMM')} - {formattedCity}
+    </p>
+
   </div>
 );
 
