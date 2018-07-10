@@ -11,15 +11,19 @@
       border-bottom 3px solid transparent
       transition border-color .3s
       border-radius 8px
-      transition-property padding, box-shadow, background-color, margin
+      transition-property padding, box-shadow, background-color, margin, border
       transition-duration Speed
       transition-timing-function ease-out
       padding 0 0.4em
       margin-left -0.4em
-      box-shadow 0px 10px 15px #ddd
+      box-shadow 0px 5px 15px #ddd
+      border-top 2px solid #fefefe
+      border-bottom 1px solid hsl(0,0,90)
       &:hover
         background-color white
         box-shadow -5px 30px 55px #aaa
+        border-top 2px solid white
+        border-bottom 1px solid hsl(0,0,70)
         filter scale(1.2)
 
   h2

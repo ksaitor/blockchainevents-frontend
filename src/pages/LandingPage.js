@@ -4,17 +4,19 @@ import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
 import { Container, Header, Divider, Button, Icon, Input, Step, Popup } from 'semantic-ui-react'
-import Moment from 'moment'
+import moment from 'moment'
 import Typed from 'react-typed'
 
-const EventPreview = ({id, title, description, url, time, when, city}) => (
+const EventPreview = ({id, title, description, url, time, when, formattedCity}) => (
   <div className='EventPreview' key={id}>
+    {moment(when).format('dddd, Do MMMM')}
     <Header as='h3'>
       <a href={url} target='_blank'>
-        {Moment(time, 'Hmm').isValid() ? Moment(time, 'Hmm').format('h:mma') : null} - {title}
+        {moment(time, 'Hmm').isValid() ? moment(time, 'Hmm').format('h:mma') : null} - {title}
       </a>
     </Header>
     <p>{description}</p>
+    <p>{formattedCity}</p>
   </div>
 );
 
@@ -30,6 +32,18 @@ class LandingPage extends React.Component {
   componentDidMount () {
     if (this.emailInput) {
       this.emailInput.focus()
+    }
+    this.props.Events.query = (ref) => {
+      const cityFilter = false
+      let newRef = ref.orderBy('when', 'asc')
+        .startAt(moment().startOf('week').toDate())
+        .endAt(moment().endOf('week').toDate())
+
+      if (cityFilter) {
+        newRef = newRef.where('formattedCity', '==', cityFilter)
+      }
+
+      return newRef
     }
   }
   typed1ref (ref) { this.typed1 = ref }
@@ -78,7 +92,7 @@ class LandingPage extends React.Component {
                 showCursor={false} typeSpeed={70}
                 onComplete={this.onComplete.bind(this)} />
             </span>}
-            content='Change your city'
+            content='Change the city'
             position='bottom center'
             size='tiny'
             inverted />
@@ -93,8 +107,8 @@ class LandingPage extends React.Component {
               fadeOut={true}
               strings={[
                 `a Weekly Newsletter 📨 `,
-                `It's <strong>🤑 FREE.</strong> <i> </i> `,
-                `No spam. 👍 Guaranteed.`
+                `It's 🤑 <strong>FREE</strong>`,
+                `No spam 👍 Guaranteed`
               ]}/>
           </Header>
 
@@ -116,7 +130,7 @@ class LandingPage extends React.Component {
       </div>,
       <div className='Events'>
         <Container text>
-          <Header as='h2' content='Events this week:' />
+          <Header as='h2' content='This week:' />
           {events.map(e => <EventPreview key={e.id} {...e.data} />)}
         </Container>
       </div>
