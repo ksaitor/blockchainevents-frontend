@@ -3,7 +3,7 @@ import './LandingPage.styl'
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
-import { Container, Header, Divider, Button, Icon, Input, Step, Popup } from 'semantic-ui-react'
+import { Container, Header, Divider, Button, Icon, Input, Step, Popup, Image } from 'semantic-ui-react'
 import moment from 'moment'
 import Typed from 'react-typed'
 
@@ -83,7 +83,7 @@ class LandingPage extends React.Component {
       handleChange(null, {name: 'city', value: fullLocationName})
     }
 
-    return [
+    return <React.Fragment>
       <div className="LandingPage">
         <Container text>
           <Header as='h1'>
@@ -130,14 +130,26 @@ class LandingPage extends React.Component {
               </Input>
           }
         </Container>
-      </div>,
+      </div>
       <div className='Events'>
+        <Container text textAlign='center'>
+          <Header as='h2' content='🚧 Under construction 🚧' textAlign='center'/>
+          If you really like the idea & want it to exist — please sign up and spread the word!<br/>
+          Your support will inpire me to launch this faster. 😘
+          <br/><br/>
+          <Image src='https://media1.tenor.com/images/fce2523cef65546c2bbe9788a181bfa8/tenor.gif?itemid=5475353' rounded centered/>
+        </Container>
         <Container text>
           <Header as='h2' content='This week:' />
           {events.map(e => <EventPreview key={e.id} {...e.data} />)}
+          {events.length ? null :<div>
+            No events yet… Why not <Link to='https://cryptojobslist.typeform.com/to/klhneI' target='_blank'>
+              add an event
+            </Link>?
+          </div>}
         </Container>
       </div>
-    ]
+    </React.Fragment>
   }
 }
 

@@ -29,9 +29,7 @@ const EventOverview = ({time, title, description, seoSlug}) => (
   </div>
 );
 
-// @observer
 class WeekView extends React.Component {
-  // @observable title = ''
   constructor(props) {
     super(props);
     document.title = ''
@@ -55,8 +53,6 @@ class WeekView extends React.Component {
     })
   }
 
-  componentDidMount () { }
-
   render() {
     const { city, events } = this.state;
     if (_.size(events) < 1) { return 'Loading…' }
@@ -77,4 +73,4 @@ class WeekView extends React.Component {
   }
 }
 
-export default WeekView;
+export default WeekView
