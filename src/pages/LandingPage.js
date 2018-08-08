@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom'
 import { Container, Header, Divider, Button, Icon, Input, Step, Popup, Image } from 'semantic-ui-react'
 import moment from 'moment'
 import Typed from 'react-typed'
+import Helmet from 'react-helmet'
+
+import ogImage from '../../public/images/opengraph-image.png'
 
 const EventPreview = ({id, title, description, url, time, when, formattedCity}) => (
   <div className='EventPreview' key={id}>
@@ -19,7 +22,6 @@ const EventPreview = ({id, title, description, url, time, when, formattedCity}) 
       <br/>
       {moment(when).format('dddd, Do MMMM')} - {formattedCity}
     </p>
-
   </div>
 );
 
@@ -84,6 +86,13 @@ class LandingPage extends React.Component {
     }
 
     return <React.Fragment>
+      <Helmet>
+        <meta property="og:image" content={ogImage} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content='Blockchain Events' />
+        <meta name="twitter:description" content="Onward Flight Ticket Generator - Travel to your next destination without the need to buy expensive tickets in advance." />
+        <meta name="twitter:image" content={ogImage} />
+      </Helmet>
       <div className="LandingPage">
         <Container text>
           <Header as='h1'>
@@ -140,11 +149,11 @@ class LandingPage extends React.Component {
           <Image src='https://media1.tenor.com/images/fce2523cef65546c2bbe9788a181bfa8/tenor.gif?itemid=5475353' rounded centered/>
         </Container>
         <Container text>
-          <Header as='h2' content='This week:' />
+          <Header as='h2' content='Events this week:' />
           {events.map(e => <EventPreview key={e.id} {...e.data} />)}
           {events.length ? null :<div>
             No events yet… Why not <Link to='https://cryptojobslist.typeform.com/to/klhneI' target='_blank'>
-              add an event
+              add a few events
             </Link>?
           </div>}
         </Container>
