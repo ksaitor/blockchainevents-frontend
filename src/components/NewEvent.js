@@ -2,6 +2,7 @@ import './NewEvent.styl'
 
 import { get as ENV } from 'react-global-configuration'
 import React from 'react'
+import ReactGA from 'react-ga'
 import moment from 'moment'
 import { post } from 'axios'
 import { observer, inject } from 'mobx-react'
@@ -10,6 +11,7 @@ import { Header, Label, Divider, Image, Message, Button, Segment, Icon } from 's
 import { Form, Radio } from 'formsy-semantic-ui-react'
 
 const API = ENV('apiDomain')
+ReactGA.initialize(ENV('GA'))
 const errorLabel = <Label color="red" pointing/>
 
 @inject('NewEventStore')
@@ -17,7 +19,10 @@ const errorLabel = <Label color="red" pointing/>
 @observer
 class NewEvent extends React.Component {
 
-  componentDidMount () { }
+  componentDidMount () {
+    ReactGA.set({ page: location.pathname });
+    ReactGA.pageview(location.pathname);
+  }
 
   render() {
     const { handleChange, submit } = this.props.NewEventStore

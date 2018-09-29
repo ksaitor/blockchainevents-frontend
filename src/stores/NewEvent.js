@@ -21,7 +21,7 @@ class NewEvent {
 
   @action submit = () => {
     this._loading = true
-    const data = omit(this, ['_loading', '_submitted', '_error'])
+    const data = omit(this, ['_loading', '_submitted', '_error', 'DATE_FORMAT'])
     post(`${API}/event/create`, data)
     .then(res => {
       alert('your was successfully submited!')
