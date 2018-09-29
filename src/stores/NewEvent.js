@@ -22,6 +22,7 @@ class NewEvent {
   @action newEvent = () => {
     this._submitted = false
   }
+
   @action submit = () => {
     this._loading = true
     const data = omit(this, ['_loading', '_submitted', '_error', 'DATE_FORMAT'])

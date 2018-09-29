@@ -28,7 +28,7 @@ const EventPreview = ({id, title, description, url, time, when, formattedCity}) 
   </div>
 );
 
-@inject('Events')
+@inject('EventsStore')
 @inject('Subscriber')
 @inject('GeoLocationStore')
 @observer
@@ -62,7 +62,8 @@ class LandingPage extends React.Component {
   render() {
     const { handleChange, handleEnterKey, subscribe } = this.props.Subscriber
     const { subscribed, city, _loading, _error } = this.props.Subscriber
-    const events = this.props.Events.docs
+    const { events } = this.props.EventsStore
+    console.log(events)
 
     const geo = this.props.GeoLocationStore.geo
     let fullLocationName =  'your city'
@@ -141,9 +142,7 @@ class LandingPage extends React.Component {
           <Header as='h2' content='Events this week:' />
           {events.map(e => <EventPreview key={e.id} {...e.data} />)}
           {events.length ? null :<div>
-            No events yet… Why not <Link className='hide' to='https://cryptojobslist.typeform.com/to/klhneI' target='_blank'>
-              add a few events
-            </Link>?
+            No events yet… Why not <Link to='/submit'> add a few events </Link>?
           </div>}
         </Container>
       </div>
