@@ -20,10 +20,14 @@ class NewEvent extends React.Component {
 
   render() {
     const { handleChange, submit } = this.props.NewEventStore
-    const { _loading, _error, _submitted } = this.props.NewEventStore
-    const geo = this.props.GeoLocationStore.geo
+    const { _loading, _error, _submitted, city } = this.props.NewEventStore
     const formState = { loading: _loading, error: _error }
-    console.log(geo)
+    const geo = this.props.GeoLocationStore.geo
+    let cityPlaceholder = ''
+    if (geo) {
+      const { city, regionName, country } = geo.geo1
+      cityPlaceholder = `${city}, ${regionName || ''}, ${country}`
+    }
     return (
       <Container className="NewEvent" text>
         {_submitted ?
@@ -46,16 +50,16 @@ class NewEvent extends React.Component {
           <Divider horizontal />
           <Form.Input name='title' label='Title' placeholder='e.g. Awesome Blockchain Event' validations="minLength:3,maxLength:60" required onChange={handleChange} />
           <Form.Input
-              name='shortDescription' label='Short Description' placeholder='In 2-3 sentances, describe this event about?' rows='3'
+              name='shortDescription' label='Short Description' placeholder='In 2-3 sentances, describe what this event is about …'
               validations="maxLength:510"
               validationErrors={{ maxLength: 'Up to 500 characters, please…' }}
               required
               errorLabel={errorLabel}
               onChange={handleChange} />
           <Form.Group>
-            <Form.Input name='city' label='City' placeholder='New York' validations="minLength:3" required onChange={handleChange} />
+            <Form.Input name='city' label='City' placeholder='New York' validations="minLength:3" required onChange={handleChange} value={cityPlaceholder} disabled />
             <Form.TextArea
-              name='venue' label='Venue' placeholder='Please be specific, where exactly the event is …' rows='3'
+              name='venue' label='Venue' placeholder='Be specific, where exactly the event is …' rows='3'
               validations="minLength:10"
               validationErrors={{ minLength: 'Be more specific, please…' }}
               required
@@ -69,11 +73,10 @@ class NewEvent extends React.Component {
 
           <Divider horizontal />
 
-
           {/*<Form.Field>
-            <Form.Radio name='eventType' label='Meetup' value='meetup' checked={eventType === 'meetup'} onChange={handleChange} />
-            <Form.Radio name='eventType' label='Conference' value='conference' checked={eventType === 'conference'} onChange={handleChange} />
-            <Form.Radio name='eventType' label='Event' value='event' checked={eventType === 'event'} onChange={handleChange} />
+            <Form.Radio name='eventCategory' label='Meetup' value='meetup' checked={eventCategory === 'meetup'} onChange={handleChange} />
+            <Form.Radio name='eventCategory' label='Conference' value='conference' checked={eventCategory === 'conference'} onChange={handleChange} />
+            <Form.Radio name='eventCategory' label='Event' value='event' checked={eventCategory === 'event'} onChange={handleChange} />
           </Form.Field>*/}
 
 
@@ -87,7 +90,7 @@ class NewEvent extends React.Component {
 
           <Divider horizontal />
           <Message error header='Something went wrong' content='Please check all fields and ensure they are filled!' />
-          <Button content='Submit this Event' size='huge' color='green' onClick={submit}/>
+          <Button content='Submit this Event' size='huge' color='green' onClick={submit} disabled/>
         </Form>
         }
 

@@ -1,3 +1,4 @@
+import omit from 'lodash/omit'
 import { get as ENV } from 'react-global-configuration'
 import { post, get } from 'axios'
 import { observable, action } from 'mobx'
@@ -16,12 +17,12 @@ class NewEvent {
 
   @action handleChange = (e, { name, value, checked }) => {
     this[name] = value
-    console.log('handleChange', name, value)
   }
 
   @action submit = () => {
     this._loading = true
-    const data = {}
+    const data = omit(this, ['_loading', '_submitted', '_error'])
+    console.log('submit', data)
     return
     post(`${API}/event/create`, data)
     .then(res => {
