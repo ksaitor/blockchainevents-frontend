@@ -13,17 +13,17 @@ ReactGA.initialize(ENV('GA'))
 
 import ogImage from '../../public/images/opengraph-image.png'
 
-const EventPreview = ({id, title, description, url, time, when, formattedCity}) => (
+const EventPreview = ({id, title, shortDescription, url, time, when, city}) => (
   <div className='EventPreview' key={id}>
     <Header as='h3'>
       <a href={url} target='_blank'>
-        {moment(time, 'Hmm').isValid() ? moment(time, 'Hmm').format('h:mma') : null} - {title}
+        {moment(time, 'H:mm').isValid() ? moment(time, 'H:mm').format('h:mma') : null} - {title}
       </a>
     </Header>
     <p>
-      {description}
+      {shortDescription}
       <br/>
-      {moment(when).format('dddd, Do MMMM')} - {formattedCity}
+      {moment(when).format('dddd, Do MMMM')} - {city}
     </p>
   </div>
 );
@@ -63,7 +63,6 @@ class LandingPage extends React.Component {
     const { handleChange, handleEnterKey, subscribe } = this.props.Subscriber
     const { subscribed, city, _loading, _error } = this.props.Subscriber
     const { events } = this.props.EventsStore
-    console.log(events)
 
     const geo = this.props.GeoLocationStore.geo
     let fullLocationName =  'your city'
@@ -140,7 +139,7 @@ class LandingPage extends React.Component {
         </Container>
         <Container text>
           <Header as='h2' content='Events this week:' />
-          {events.map(e => <EventPreview key={e.id} {...e.data} />)}
+          {events.map(e => <EventPreview key={e.id} {...e} />)}
           {events.length ? null :<div>
             No events yet… Why not <Link to='/submit'> add a few events </Link>?
           </div>}
