@@ -1,6 +1,6 @@
 import 'semantic-ui-css/semantic.min.css'
 import '../styles/index.styl'
-import './config'
+import config from './config'
 
 window.log = console.log
 import React from 'react'

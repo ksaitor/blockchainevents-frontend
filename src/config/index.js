@@ -8,3 +8,6 @@ if (window.location.hostname === 'localhost' ) {
 } else {
   config.set(prod);
 }
+
+
+export default config

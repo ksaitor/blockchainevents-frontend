@@ -1,12 +1,15 @@
 import './LandingPage.styl'
 
 import React from 'react'
+import ReactGA from 'react-ga'
+import { get as ENV } from 'react-global-configuration'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
 import { Container, Header, Divider, Button, Icon, Input, Step, Popup, Image } from 'semantic-ui-react'
 import moment from 'moment'
 import Typed from 'react-typed'
 import Helmet from 'react-helmet'
+ReactGA.initialize(ENV('GA'))
 
 import ogImage from '../../public/images/opengraph-image.png'
 
@@ -38,6 +41,8 @@ class LandingPage extends React.Component {
     if (this.emailInput) {
       this.emailInput.focus()
     }
+    ReactGA.set({ page: location.pathname });
+    ReactGA.pageview(location.pathname);
   }
   typed1ref (ref) { this.typed1 = ref }
   typed2ref (ref) { this.typed2 = ref }
