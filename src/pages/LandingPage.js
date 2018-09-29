@@ -54,7 +54,7 @@ class LandingPage extends React.Component {
 
   changeLocation () {
     const { handleChange, city } = this.props.Subscriber
-    const loc = prompt(`What city you'd like to receive updates for?`)
+    const loc = prompt(`[This is not working yet] What city you'd like to receive updates for?`)
     handleChange(null, {name: 'city', value: loc})
     this.typed1.reset()
   }
@@ -131,10 +131,11 @@ class LandingPage extends React.Component {
       <div className='Events'>
         <Container text textAlign='center'>
           <Header as='h2' content='🚧 Under construction 🚧' textAlign='center'/>
-          If you really like the idea & want it to exist — please sign up and spread the word!<br/>
-          Your support will inpire me to launch this faster. 😘
-          <br/><br/>
-          <Image src='https://media1.tenor.com/images/fce2523cef65546c2bbe9788a181bfa8/tenor.gif?itemid=5475353' rounded centered/>
+          <Link to='https://www.twitch.tv/ksaitor' target='_blank'>
+            👇 LIVE STREAMING on  🔴 <b>Twitch</b> now 👇
+            <br/><br/>
+            <Image src='https://media1.tenor.com/images/fce2523cef65546c2bbe9788a181bfa8/tenor.gif?itemid=5475353' rounded centered/>
+          </Link>
         </Container>
         <Container text>
           <Header as='h2' content='Events this week:' />

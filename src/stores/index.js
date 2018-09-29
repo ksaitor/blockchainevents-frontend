@@ -13,5 +13,6 @@ export default {
   GeoLocationStore: require('./GeoLocationStore'),
   Events: new Collection('events'),
   Subscriber: require('./Subscriber'),
+  NewEventStore: require('./NewEvent'),
   routingStore: new RouterStore()
 }
