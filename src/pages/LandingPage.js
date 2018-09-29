@@ -133,7 +133,7 @@ class LandingPage extends React.Component {
                   </Step.Content>
                 </Step>
               </Step.Group>
-            : <Input size='large' className='subscribe' name='email' placeholder='your@email.com' action onChange={handleChange}>
+            : <Input size='large' className='subscribe hide' name='email' placeholder='your@email.com' action onChange={handleChange}>
                 <input ref={(c) => { this.emailInput = c;}} onKeyPress={this._handleKeyPress.bind(this)} />
                 <Button content='Subscribe' color='green' onClick={subscribe} size='huge'/>
               </Input>
@@ -152,7 +152,7 @@ class LandingPage extends React.Component {
           <Header as='h2' content='Events this week:' />
           {events.map(e => <EventPreview key={e.id} {...e.data} />)}
           {events.length ? null :<div>
-            No events yet… Why not <Link to='https://cryptojobslist.typeform.com/to/klhneI' target='_blank'>
+            No events yet… Why not <Link className='hide' to='https://cryptojobslist.typeform.com/to/klhneI' target='_blank'>
               add a few events
             </Link>?
           </div>}

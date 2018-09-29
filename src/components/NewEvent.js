@@ -9,7 +9,6 @@ import { observer } from 'mobx-react';
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon } from 'semantic-ui-react'
 import { Form, Radio } from 'formsy-semantic-ui-react'
-import logoUrl from '../../public/images/cjl-logo-night.png'
 
 const API = ENV('apiDomain')
 const errorLabel = <Label color="red" pointing/>
