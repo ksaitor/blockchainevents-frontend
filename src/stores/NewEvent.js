@@ -28,7 +28,6 @@ class NewEvent {
     const data = omit(this, ['_loading', '_submitted', '_error', 'DATE_FORMAT'])
     post(`${API}/event/create`, data)
     .then(res => {
-      alert('your was successfully submited!')
       this._submitted = true
       this._loading = false
     })
