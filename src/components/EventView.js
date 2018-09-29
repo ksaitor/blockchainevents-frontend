@@ -1,6 +1,5 @@
 // import './EventView.styl';
 
-import _ from 'lodash';
 import { get as ENV } from 'react-global-configuration';
 import React from 'react';
 import moment from 'moment';

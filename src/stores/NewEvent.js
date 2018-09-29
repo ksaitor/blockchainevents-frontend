@@ -12,7 +12,7 @@ class NewEvent {
   @observable url = null
   @observable createdBy = null
 
-  @observable submitted = false
+  @observable _submitted = false
 
   @action handleChange = (e, { name, value, checked }) => {
     this[name] = value
@@ -25,7 +25,7 @@ class NewEvent {
     return
     post(`${API}/event/create`, data)
     .then(res => {
-      this.submitted = true
+      this._submitted = true
       this._loading = false
     })
     .catch(this.handleError)

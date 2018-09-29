@@ -1,6 +1,6 @@
 import './WeekView.styl'
 
-import _ from 'lodash'
+import { upperFirst, map, groupBy, size } from 'lodash'
 import { get as ENV } from 'react-global-configuration'
 import React from 'react'
 import moment from 'moment'
@@ -35,7 +35,7 @@ class WeekView extends React.Component {
     document.title = ''
     this.state = {
       events: [],
-      city: _.upperFirst(props.match.params.city)
+      city: upperFirst(props.match.params.city)
     }
   }
 
@@ -55,14 +55,14 @@ class WeekView extends React.Component {
 
   render() {
     const { city, events } = this.state;
-    if (_.size(events) < 1) { return 'Loading…' }
-    const days = _.groupBy(events, (e) => { return moment(e.date).format('L') })
+    if (size(events) < 1) { return 'Loading…' }
+    const days = groupBy(events, (e) => { return moment(e.date).format('L') })
     return (
       <Container className="WeekView" text>
         <Header as='h1'>Blockchain Events <br/> in {city}</Header>
         <HeadMenu />
 
-        {_.map(days, (events, date) => {
+        {map(days, (events, date) => {
           return <Day date={date} events={events} key={Math.random()} />
         })}
 

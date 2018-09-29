@@ -2,6 +2,10 @@ import { observable, action } from 'mobx'
 import { get } from 'axios'
 
 class GeoLocationStore {
+  constructor () {
+    this.fetch()
+  }
+
   @observable geo = null
 
   @action fetch = () => {
