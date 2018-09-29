@@ -20,11 +20,7 @@ const EventPreview = ({id, title, shortDescription, url, time, when, city}) => (
         {moment(time, 'H:mm').isValid() ? moment(time, 'H:mm').format('h:mma') : null} - {title}
       </a>
     </Header>
-    <p>
-      {shortDescription}
-      <br/>
-      {moment(when).format('dddd, Do MMMM')} - {city}
-    </p>
+    <p>{shortDescription}</p>
   </div>
 );
 
@@ -129,14 +125,6 @@ class LandingPage extends React.Component {
         </Container>
       </div>
       <div className='Events'>
-        <Container text textAlign='center'>
-          <Header as='h2' content='🚧 Under construction 🚧' textAlign='center'/>
-          <Link to='https://www.twitch.tv/ksaitor' target='_blank'>
-            👇 LIVE STREAMING on  🔴 <b>Twitch</b> now 👇
-            <br/><br/>
-            <Image src='https://media1.tenor.com/images/fce2523cef65546c2bbe9788a181bfa8/tenor.gif?itemid=5475353' rounded centered/>
-          </Link>
-        </Container>
         <Container text>
           <Header as='h2' content='Events this week:' />
           {events.map(e => <EventPreview key={e.id} {...e} />)}
