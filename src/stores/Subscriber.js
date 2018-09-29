@@ -5,6 +5,11 @@ import { observable, action } from 'mobx'
 const API = ENV('apiDomain')
 
 class Subscriber {
+  constructor () {
+    this.fetchStats()
+  }
+
+  @observable stats = {}
   @observable subscribed = false
   @observable email = null
   @observable city = null
@@ -33,6 +38,13 @@ class Subscriber {
       }, 3000)
     })
     .catch(this.handleError)
+  }
+
+  @action fetchStats = () => {
+    get(`${API}/user/stats`)
+    .then(res => {
+      this.stats = res.data
+    })
   }
 
   handleError (err) {
