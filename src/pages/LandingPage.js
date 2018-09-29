@@ -38,18 +38,6 @@ class LandingPage extends React.Component {
     if (this.emailInput) {
       this.emailInput.focus()
     }
-    this.props.Events.query = (ref) => {
-      const cityFilter = false
-      let newRef = ref.orderBy('when', 'asc')
-        .startAt(moment().startOf('week').toDate())
-        .endAt(moment().endOf('week').toDate())
-
-      if (cityFilter) {
-        newRef = newRef.where('formattedCity', '==', cityFilter)
-      }
-
-      return newRef
-    }
   }
   typed1ref (ref) { this.typed1 = ref }
   typed2ref (ref) { this.typed2 = ref }
@@ -59,12 +47,6 @@ class LandingPage extends React.Component {
   }
 
 
-  _handleKeyPress (e) {
-    if (e.key === 'Enter') {
-      this.props.Subscriber.subscribe()
-    }
-  }
-
   changeLocation () {
     const { handleChange, city } = this.props.Subscriber
     const loc = prompt(`What city you'd like to receive updates for?`)
@@ -73,7 +55,8 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const { handleChange, subscribed, subscribe, city } = this.props.Subscriber
+    const { handleChange, handleEnterKey, subscribe } = this.props.Subscriber
+    const { subscribed, city, _loading, _error } = this.props.Subscriber
     const events = this.props.Events.docs
 
     const geo = this.props.GeoLocationStore.geo
@@ -133,9 +116,9 @@ class LandingPage extends React.Component {
                   </Step.Content>
                 </Step>
               </Step.Group>
-            : <Input size='large' className='subscribe hide' name='email' placeholder='your@email.com' action onChange={handleChange}>
-                <input ref={(c) => { this.emailInput = c;}} onKeyPress={this._handleKeyPress.bind(this)} />
-                <Button content='Subscribe' color='green' onClick={subscribe} size='huge'/>
+            : <Input size='large' className='subscribe' name='email' placeholder='your@email.com' action onChange={handleChange}>
+                <input ref={(c) => { this.emailInput = c;}} onKeyPress={handleEnterKey} />
+                <Button content='Subscribe' color='green' onClick={subscribe} size='huge' loading={_loading} />
               </Input>
           }
         </Container>

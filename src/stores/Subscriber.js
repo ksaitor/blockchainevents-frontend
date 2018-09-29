@@ -1,7 +1,8 @@
+import { get as ENV } from 'react-global-configuration'
+import { post, get } from 'axios'
 import { observable, action } from 'mobx'
-import { Collection, Document } from 'firestorter'
 
-const subscribers = new Collection('eventNewsletterSubscribers');
+const API = ENV('apiDomain')
 
 class Subscriber {
   @observable subscribed = false
@@ -12,16 +13,33 @@ class Subscriber {
     this[name] = value
   }
 
+  @action handleEnterKey = (e) => {
+    if (e.key === 'Enter') {
+      this.subscribe()
+    }
+  }
+
   @action subscribe = () => {
+    let email = this.email
+    console.log({email})
     let that = this
-    this.subscribed = true
-    subscribers.add({
-      email: this.email,
-      city: this.city
+    this._loading = true
+
+    post(`${API}/user/subscribe`, {email})
+    .then(res => {
+      this.subscribed = true
+      this._loading = false
+      setTimeout(() => {
+        this.subscribed = false
+      }, 3000)
     })
-    setTimeout(()=>{
-      that.subscribed = false
-    }, 3000)
+    .catch(this.handleError)
+  }
+
+  handleError (err) {
+    console.error(err)
+    this._error = err
+    this._loading = false
   }
 
   @observable _error = false
