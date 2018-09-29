@@ -25,7 +25,7 @@ class NewEvent extends React.Component {
   }
 
   render() {
-    const { handleChange, submit } = this.props.NewEventStore
+    const { handleChange, submit, newEvent } = this.props.NewEventStore
     const { _loading, _error, _submitted, DATE_FORMAT } = this.props.NewEventStore
     const formState = { loading: _loading, error: _error }
     const geo = this.props.GeoLocationStore.geo
@@ -47,14 +47,14 @@ class NewEvent extends React.Component {
             <center>
               <Button content={<span>
                 Submit another Event <Icon name="arrow right" />
-              </span>} size='huge' color='green' href='/' />
+              </span>} size='huge' color='green' onClick={newEvent} />
             </center>
           </div>
         :
         <Form size='large' widths='equal' {...formState}>
           <Header as='h1'>New Blockchain Event <Label content="FREE" color='green' size='mini' /></Header>
           <Divider horizontal />
-          <Form.Input name='title' label='Title' placeholder='e.g. Awesome Blockchain Event' validations="minLength:3,maxLength:60" required onChange={handleChange} />
+          <Form.Input name='title' label='Title' placeholder='e.g. Awesome Blockchain Event' validations="minLength:3,maxLength:160" required onChange={handleChange} />
           <Form.Input
               name='shortDescription' label='Short Description' placeholder='In 2-3 sentances, describe what this event is about …'
               validations="maxLength:510"
