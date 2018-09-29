@@ -22,10 +22,9 @@ class NewEvent {
   @action submit = () => {
     this._loading = true
     const data = omit(this, ['_loading', '_submitted', '_error'])
-    console.log('submit', data)
-    return
     post(`${API}/event/create`, data)
     .then(res => {
+      alert('your was successfully submited!')
       this._submitted = true
       this._loading = false
     })
@@ -40,6 +39,8 @@ class NewEvent {
 
   @observable _error = false
   @observable _loading = false
+
+  DATE_FORMAT = 'HH:mm DD/MM/YYYY'
 }
 
 module.exports = new NewEvent()

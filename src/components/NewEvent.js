@@ -1,9 +1,10 @@
-import './NewEvent.styl';
+import './NewEvent.styl'
 
-import { get as ENV } from 'react-global-configuration';
-import React from 'react';
-import { post } from 'axios';
-import { observer, inject } from 'mobx-react';
+import { get as ENV } from 'react-global-configuration'
+import React from 'react'
+import moment from 'moment'
+import { post } from 'axios'
+import { observer, inject } from 'mobx-react'
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon } from 'semantic-ui-react'
 import { Form, Radio } from 'formsy-semantic-ui-react'
@@ -20,7 +21,7 @@ class NewEvent extends React.Component {
 
   render() {
     const { handleChange, submit } = this.props.NewEventStore
-    const { _loading, _error, _submitted, city } = this.props.NewEventStore
+    const { _loading, _error, _submitted, DATE_FORMAT } = this.props.NewEventStore
     const formState = { loading: _loading, error: _error }
     const geo = this.props.GeoLocationStore.geo
     let cityPlaceholder = ''
@@ -66,9 +67,16 @@ class NewEvent extends React.Component {
               errorLabel={errorLabel}
               onChange={handleChange} />
           </Form.Group>
+          {/*<Form.Input className='hide' name='datetime' label='Start Time and Date' placeholder={DATE_FORMAT} required onChange={handleChange}
+            validations={{ isDate: (values, value) => {
+              console.log(value, moment(value, DATE_FORMAT).isValid())
+              return moment(value, DATE_FORMAT).isValid() ? true : `Should have the following format ${DATE_FORMAT}`
+            }}}
+            validationErrors={{ isDate: `Should have the following format ${DATE_FORMAT}` }}
+          />*/}
           <Form.Group>
             <Form.Input name='time' label='Start Time' placeholder='14:00' required onChange={handleChange} />
-            <Form.Input name='date' label='Date' placeholder='MM / DD / 2018'  required onChange={handleChange} />
+            <Form.Input name='date' label='Date' placeholder='DD/MM/2018'  required onChange={handleChange} />
           </Form.Group>
 
           <Divider horizontal />
@@ -90,7 +98,7 @@ class NewEvent extends React.Component {
 
           <Divider horizontal />
           <Message error header='Something went wrong' content='Please check all fields and ensure they are filled!' />
-          <Button content='Submit this Event' size='huge' color='green' onClick={submit} disabled/>
+          <Button content='Submit this Event' size='huge' color='green' onClick={submit} />
         </Form>
         }
 
