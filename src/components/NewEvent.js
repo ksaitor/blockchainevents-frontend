@@ -106,6 +106,11 @@ class NewEvent extends React.Component {
           <Divider horizontal />
           <Message error header='Something went wrong' content='Please check all fields and ensure they are filled!' />
           <Button content='Submit' size='huge' color='green' onClick={submit} />
+          <p style={{maxWidth: 400}}>
+            Heyy 👋<br/>
+            Before you submit, please please please make sure it's a legit Blockchain/Crypto related event and not a <b>test</b> or some other b/s.<br/><br/>
+            Thanks!<br/>
+          </p>
         </Form>
         }
 
