@@ -29,7 +29,7 @@ const Day = ({dayTitle, events}) => (
   </div>
 )
 
-const EventPreview = ({id, title, shortDescription, url, time, dateTime, city}) => (
+const EventPreview = ({id, title, shortDescription, url, time, dateTime, city, geo}) => (
   <div className={'EventPreview '+isPast(dateTime)} key={id}>
     <Header as='h3'>
       <a href={url} target='_blank'>
@@ -37,6 +37,7 @@ const EventPreview = ({id, title, shortDescription, url, time, dateTime, city}) 
       </a>
     </Header>
     <p>{shortDescription}</p>
+    <p className='city'>{city}</p>
   </div>
 )
 
@@ -74,7 +75,7 @@ class LandingPage extends React.Component {
   render() {
     const { handleChange, handleEnterKey, subscribe } = this.props.User
     const { subscribed, city, stats: userStats, _loading, _error } = this.props.User
-    const { events, eventsByDay, stats: eventStats } = this.props.EventsStore
+    const { events, allEvents, eventsByDay, stats: eventStats } = this.props.EventsStore
 
     const geo = this.props.GeoLocationStore.geo
     let fullLocationName =  'your city'
@@ -154,13 +155,21 @@ class LandingPage extends React.Component {
             }
           })}
           {events.length ? null :<div>
-            No events yet… Why not <Link to='/submit'> add a few events </Link>?
+            😿 No blockchain events in your city yet… <Link to='/submit'>Submit an event</Link>
           </div>}
           {eventStats && eventStats.eventsTotalQty && <p className='event-stats'>
             {pluralize('blockchain event', eventStats.eventsTotalQty, true)} 🌎globaly.<br/>
             {pluralize('blockchain event', eventStats.eventsInYourCityQty, true)} 📍in your city.<br/>
-            <Link to='/submit'>Submit an event</Link>
+            <Button as={Link} to='/submit' color='green' style={{marginTop: '1em'}}>
+              <Icon name='plus'/> Submit an event
+            </Button>
           </p>}
+        </Container>
+      </div>
+      <div className='Events Global'>
+        <Container text>
+          <Header as='h2' content='Blockchain events 🌎 Worldwide' textAlign='center' />
+          {allEvents.map(e => <EventPreview key={e.id} {...e} />)}
         </Container>
       </div>
     </React.Fragment>
