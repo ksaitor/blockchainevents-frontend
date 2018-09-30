@@ -103,7 +103,7 @@ class NewEvent extends React.Component {
 
           <Divider horizontal />
           <Message error header='Something went wrong' content='Please check all fields and ensure they are filled!' />
-          <Button content='Submit this Event' size='huge' color='green' onClick={submit} />
+          <Button content='Submit' size='huge' color='green' onClick={submit} />
         </Form>
         }
 

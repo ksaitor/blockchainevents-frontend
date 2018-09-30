@@ -136,8 +136,9 @@ class LandingPage extends React.Component {
             No events yet… Why not <Link to='/submit'> add a few events </Link>?
           </div>}
           {eventStats && eventStats.eventsTotalQty && <p className='event-stats'>
-            {pluralize('blockchain event', eventStats.eventsTotalQty, true)} globaly.<br/>
-            {pluralize('blockchain event', eventStats.eventsInYourCityQty, true)} in your city.
+            {pluralize('blockchain event', eventStats.eventsTotalQty, true)} 🌎globaly.<br/>
+            {pluralize('blockchain event', eventStats.eventsInYourCityQty, true)} 📍in your city.<br/>
+            <Link to='/submit'>Submit an event</Link>
           </p>}
         </Container>
       </div>
