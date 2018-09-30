@@ -49,15 +49,15 @@ class LandingPage extends React.Component {
 
 
   changeLocation () {
-    const { handleChange, city } = this.props.Subscriber
+    const { handleChange, city } = this.props.User
     const loc = prompt(`[This is not working yet] What city you'd like to receive updates for?`)
     handleChange(null, {name: 'city', value: loc})
     this.typed1.reset()
   }
 
   render() {
-    const { handleChange, handleEnterKey, subscribe } = this.props.Subscriber
-    const { subscribed, city, _loading, _error } = this.props.Subscriber
+    const { handleChange, handleEnterKey, subscribe } = this.props.User
+    const { subscribed, city, stats, _loading, _error } = this.props.User
     const { events } = this.props.EventsStore
 
     const geo = this.props.GeoLocationStore.geo
@@ -117,10 +117,13 @@ class LandingPage extends React.Component {
                   </Step.Content>
                 </Step>
               </Step.Group>
-            : <Input size='large' className='subscribe' name='email' placeholder='your@email.com' action onChange={handleChange}>
-                <input ref={(c) => { this.emailInput = c;}} onKeyPress={handleEnterKey} />
-                <Button content='Subscribe' color='green' onClick={subscribe} size='huge' loading={_loading} />
-              </Input>
+            : <React.Fragment>
+                <Input size='large' className='subscribe' name='email' placeholder='your@email.com' action onChange={handleChange}>
+                  <input ref={(c) => { this.emailInput = c;}} onKeyPress={handleEnterKey} />
+                  <Button content='Subscribe' color='green' onClick={subscribe} size='huge' loading={_loading} />
+                </Input>
+                {stats && <p className='subscribed-stats'>{stats.usersQty}+ blockchain enthusiasts subscribed!</p>}
+              </React.Fragment>
           }
         </Container>
       </div>
