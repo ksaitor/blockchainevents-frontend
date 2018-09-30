@@ -10,11 +10,13 @@ const API = ENV('apiDomain')
 class Events {
   constructor () {
     this.fetchThisWeek()
+    this.fetchAllEvents()
     this.fetchStats()
   }
 
   @observable stats = {}
   @observable events = []
+  @observable allEvents = []
 
   @action fetchThisWeek = () => {
     this._loading = true
@@ -25,6 +27,13 @@ class Events {
       this._loading = false
     })
     .catch(this.handleError)
+  }
+
+  @action fetchAllEvents = () => {
+    get(`https://api.blockchainevent.co/event`)
+    .then(res => {
+      this.allEvents = res.data
+    })
   }
 
   @action fetchOne = (urlSlug) => {
