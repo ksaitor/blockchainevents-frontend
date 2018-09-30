@@ -25,7 +25,7 @@ const EventPreview = ({id, title, shortDescription, url, time, when, city}) => (
 );
 
 @inject('EventsStore')
-@inject('Subscriber')
+@inject('User')
 @inject('GeoLocationStore')
 @observer
 class LandingPage extends React.Component {

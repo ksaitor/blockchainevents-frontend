@@ -3,7 +3,7 @@ import { RouterStore } from 'mobx-react-router'
 
 export default {
   GeoLocationStore: require('./GeoLocationStore'),
-  Subscriber: require('./Subscriber'),
+  User: require('./User'),
   NewEventStore: require('./NewEvent'),
   EventsStore: require('./Events'),
   routingStore: new RouterStore()
