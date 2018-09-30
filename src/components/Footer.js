@@ -3,6 +3,7 @@ import './Footer.styl';
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Container, List, Icon } from 'semantic-ui-react'
+import ByKsaitor from './ByKsaitor'
 
 const Footer = () => (
   <div className='Footer'>
@@ -16,6 +17,7 @@ const Footer = () => (
         </List.Item>
       </List>
     </Container>
+    <ByKsaitor />
   </div>
 )
 

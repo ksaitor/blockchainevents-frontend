@@ -1,0 +1,37 @@
+.ByKsaitor
+  baseColor = hsl(0, 0%, 90%)
+  display block
+  position fixed
+  left -1px
+  bottom -1px
+  padding 0.5em 1em 0.3em
+  border 1px solid baseColor
+  text-decoration none
+  color darken(baseColor, 60%)
+  font-size 16px
+  border-top-right-radius 0.2em
+  transition-property color, border
+  transition-duration (2/7)s
+  background white
+  z-index 999
+  &:hover
+    color darken(baseColor, 90%)
+    border 1px solid darken(baseColor, 30%)
+
+  @media (max-width: 750px)
+    position relative
+    text-align center
+    margin-top 1em
+    border-radius 0
+    width 102vw
+
+  .pic
+    vertical-align middle
+    display inline-block
+    border-radius 100%
+    width 1.5em
+    height 1.5em
+    background-image url('https://res.cloudinary.com/cryptojobslist/image/fetch/q_auto,fl_lossy,f_auto/https://pbs.twimg.com/profile_images/1016555391210151937/Klsm1aQX_400x400.jpg')
+    background-size cover
+    margin-left 0.8em
+    margin-right -0.1em
