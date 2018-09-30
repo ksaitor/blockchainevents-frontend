@@ -1,7 +1,9 @@
 import omit from 'lodash/omit'
+import groupBy from 'lodash/groupBy'
 import { get as ENV } from 'react-global-configuration'
 import { post, get } from 'axios'
-import { observable, action } from 'mobx'
+import { observable, action, computed } from 'mobx'
+import moment from 'moment'
 
 const API = ENV('apiDomain')
 
@@ -16,8 +18,8 @@ class Events {
 
   @action fetchThisWeek = () => {
     this._loading = true
-    // get(`${API}/event/thisWeek`)
-    get(`https://api.blockchainevent.co/event/thisWeek`)
+    get(`${API}/event/thisWeek`)
+    // get(`https://api.blockchainevent.co/event/thisWeek`)
     .then(res => {
       console.log(res)
       this.events = res.data
@@ -44,6 +46,11 @@ class Events {
     })
   }
 
+  @computed get eventsByDay () {
+    return groupBy(this.events, e => {
+      return moment(e.dateTime).format('dddd - MMMM, Do')
+    })
+  }
 
   handleError (err) {
     console.error(err)

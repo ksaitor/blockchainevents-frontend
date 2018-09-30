@@ -3,6 +3,7 @@ import './LandingPage.styl'
 import React from 'react'
 import ReactGA from 'react-ga'
 import pluralize from 'pluralize'
+import map from 'lodash/map'
 import { get as ENV } from 'react-global-configuration'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
@@ -14,8 +15,22 @@ ReactGA.initialize(ENV('GA'))
 
 import ogImage from '../../public/images/opengraph-image.png'
 
-const EventPreview = ({id, title, shortDescription, url, time, when, city}) => (
-  <div className='EventPreview' key={id}>
+const isPast = (timestamp) => {
+  if (moment().diff(timestamp) > 0) {
+    return 'past'
+  } else {
+    return ''
+  }
+}
+const Day = ({dayTitle, events}) => (
+  <div className='day' key={dayTitle}>
+    <h2>{dayTitle}</h2>
+    {events.map(e => <EventPreview key={e.id} {...e} />)}
+  </div>
+)
+
+const EventPreview = ({id, title, shortDescription, url, time, dateTime, city}) => (
+  <div className={'EventPreview '+isPast(dateTime)} key={id}>
     <Header as='h3'>
       <a href={url} target='_blank'>
         {moment(time, 'H:mm').isValid() ? moment(time, 'H:mm').format('h:mma') : null} - {title}
@@ -23,7 +38,7 @@ const EventPreview = ({id, title, shortDescription, url, time, when, city}) => (
     </Header>
     <p>{shortDescription}</p>
   </div>
-);
+)
 
 @inject('EventsStore')
 @inject('User')
@@ -59,7 +74,7 @@ class LandingPage extends React.Component {
   render() {
     const { handleChange, handleEnterKey, subscribe } = this.props.User
     const { subscribed, city, stats: userStats, _loading, _error } = this.props.User
-    const { events, stats: eventStats } = this.props.EventsStore
+    const { events, eventsByDay, stats: eventStats } = this.props.EventsStore
 
     const geo = this.props.GeoLocationStore.geo
     let fullLocationName =  'your city'
@@ -130,8 +145,14 @@ class LandingPage extends React.Component {
       </div>
       <div className='Events'>
         <Container text>
-          <Header as='h2' content='Events this week:' />
-          {events.map(e => <EventPreview key={e.id} {...e} />)}
+          <Header as='h2' content='Events this week' textAlign='center' />
+          {map(eventsByDay, (events, dayTitle) => {
+            if (dayTitle === 'Invalid date') {
+              return null
+            } else {
+              return <Day {...{dayTitle, events}}/>
+            }
+          })}
           {events.length ? null :<div>
             No events yet… Why not <Link to='/submit'> add a few events </Link>?
           </div>}

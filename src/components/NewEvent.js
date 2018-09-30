@@ -54,7 +54,7 @@ class NewEvent extends React.Component {
         <Form size='large' widths='equal' {...formState}>
           <Header as='h1'>New Blockchain Event <Label content="FREE" color='green' size='mini' /></Header>
           <Divider horizontal />
-          <Form.Input name='url' label='Link to your event' placeholder='e.g. https://meetup.com/event/...' validations="isUrl" onChange={handleChange} />
+          <Form.Input name='url' label='Event URL' placeholder='e.g. https://meetup.com/event/...' validations="isUrl" onChange={handleChange} />
           <Form.Input name='title' label='Title' placeholder='e.g. Awesome Blockchain Event' validations="minLength:3,maxLength:160" required onChange={handleChange} />
           <Form.Input
               name='shortDescription' label='Short Description' placeholder='In 2-3 sentances, describe what this event is about …'
