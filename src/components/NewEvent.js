@@ -9,6 +9,7 @@ import { observer, inject } from 'mobx-react'
 import { Container, Grid } from 'semantic-ui-react'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon } from 'semantic-ui-react'
 import { Form, Radio } from 'formsy-semantic-ui-react'
+import MaskedInput from 'react-text-mask'
 
 const API = ENV('apiDomain')
 ReactGA.initialize(ENV('GA'))
@@ -26,7 +27,7 @@ class NewEvent extends React.Component {
 
   render() {
     const { handleChange, submit, newEvent } = this.props.NewEventStore
-    const { _loading, _error, _submitted, DATE_FORMAT } = this.props.NewEventStore
+    const { dateTime, _loading, _error, _submitted, DATE_FORMAT } = this.props.NewEventStore
     const formState = { loading: _loading, error: _error }
     const geo = this.props.GeoLocationStore.geo
     let cityPlaceholder = ''
@@ -54,7 +55,6 @@ class NewEvent extends React.Component {
         <Form size='large' widths='equal' {...formState}>
           <Header as='h1'>New Blockchain Event <Label content="FREE" color='green' size='mini' /></Header>
           <Divider horizontal />
-          <Form.Input name='url' label='Event URL' placeholder='e.g. https://meetup.com/event/...' validations="isUrl" onChange={handleChange} />
           <Form.Input name='title' label='Title' placeholder='e.g. Awesome Blockchain Event' validations="minLength:3,maxLength:160" required onChange={handleChange} />
           <Form.Input
               name='shortDescription' label='Short Description' placeholder='In 2-3 sentances, describe what this event is about …'
@@ -64,7 +64,6 @@ class NewEvent extends React.Component {
               errorLabel={errorLabel}
               onChange={handleChange} />
           <Form.Group>
-            <Form.Input name='city' label='City' placeholder='New York' validations="minLength:3" required onChange={handleChange} value={cityPlaceholder} disabled />
             <Form.TextArea
               name='venue' label='Venue' placeholder='Be specific, where exactly the event is …' rows='3'
               validations="minLength:10"
@@ -72,18 +71,17 @@ class NewEvent extends React.Component {
               required
               errorLabel={errorLabel}
               onChange={handleChange} />
+            <Form.Input name='city' label='City' placeholder='New York' validations="minLength:3" required onChange={handleChange} value={cityPlaceholder} disabled />
           </Form.Group>
-          {/*<Form.Input className='hide' name='datetime' label='Start Time and Date' placeholder={DATE_FORMAT} required onChange={handleChange}
-            validations={{ isDate: (values, value) => {
-              console.log(value, moment(value, DATE_FORMAT).isValid())
-              return moment(value, DATE_FORMAT).isValid() ? true : `Should have the following format ${DATE_FORMAT}`
-            }}}
-            validationErrors={{ isDate: `Should have the following format ${DATE_FORMAT}` }}
-          />*/}
           <Form.Group>
+            <Form.Input name='dateTime' label='Date and Time' placeholder={DATE_FORMAT} required onChange={handleChange}/>
+            <Form.Input name='dateTime' label='Does this look right?' disabled value={moment(dateTime).format('LLLL')} />
+          </Form.Group>
+          <Form.Group className='hide'>
             <Form.Input name='time' label='Start Time' placeholder='14:00' required onChange={handleChange} />
             <Form.Input name='date' label='Date' placeholder='DD/MM/2018'  required onChange={handleChange} />
           </Form.Group>
+          <Form.Input name='url' label='Event URL' placeholder='e.g. https://meetup.com/event/...' validations="isUrl" onChange={handleChange} />
 
           <Divider horizontal />
 

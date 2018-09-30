@@ -31,7 +31,6 @@ class Events {
     this._loading = true
     get(`${API}/event`, {urlSlug})
     .then(res => {
-      console.log(res)
       this.event = res.data
       this._loading = false
     })

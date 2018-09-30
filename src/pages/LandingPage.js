@@ -150,7 +150,7 @@ class LandingPage extends React.Component {
             if (dayTitle === 'Invalid date') {
               return null
             } else {
-              return <Day {...{dayTitle, events}}/>
+              return <Day key={dayTitle} {...{dayTitle, events}}/>
             }
           })}
           {events.length ? null :<div>
