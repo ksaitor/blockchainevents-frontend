@@ -2,6 +2,7 @@ import './LandingPage.styl'
 
 import React from 'react'
 import ReactGA from 'react-ga'
+import pluralize from 'pluralize'
 import { get as ENV } from 'react-global-configuration'
 import { observer, inject } from 'mobx-react'
 import { Link } from 'react-router-dom'
@@ -57,8 +58,8 @@ class LandingPage extends React.Component {
 
   render() {
     const { handleChange, handleEnterKey, subscribe } = this.props.User
-    const { subscribed, city, stats, _loading, _error } = this.props.User
-    const { events } = this.props.EventsStore
+    const { subscribed, city, stats: userStats, _loading, _error } = this.props.User
+    const { events, stats: eventStats } = this.props.EventsStore
 
     const geo = this.props.GeoLocationStore.geo
     let fullLocationName =  'your city'
@@ -122,7 +123,7 @@ class LandingPage extends React.Component {
                   <input ref={(c) => { this.emailInput = c;}} onKeyPress={handleEnterKey} />
                   <Button content='Subscribe' color='green' onClick={subscribe} size='huge' loading={_loading} />
                 </Input>
-                {stats && <p className='subscribed-stats'>{stats.usersQty}+ blockchain enthusiasts subscribed!</p>}
+                {userStats && <p className='subscribed-stats'>{userStats.usersQty}+ blockchain enthusiasts subscribed!</p>}
               </React.Fragment>
           }
         </Container>
@@ -134,6 +135,10 @@ class LandingPage extends React.Component {
           {events.length ? null :<div>
             No events yet… Why not <Link to='/submit'> add a few events </Link>?
           </div>}
+          {eventStats && eventStats.eventsTotalQty && <p className='event-stats'>
+            {pluralize('blockchain event', eventStats.eventsTotalQty, true)} globaly.<br/>
+            {pluralize('blockchain event', eventStats.eventsInYourCityQty, true)} in your city.
+          </p>}
         </Container>
       </div>
     </React.Fragment>

@@ -8,8 +8,10 @@ const API = ENV('apiDomain')
 class Events {
   constructor () {
     this.fetchThisWeek()
+    this.fetchStats()
   }
 
+  @observable stats = {}
   @observable events = []
 
   @action fetchThisWeek = () => {
@@ -33,6 +35,13 @@ class Events {
       this._loading = false
     })
     .catch(this.handleError)
+  }
+
+  @action fetchStats = () => {
+    get(`${API}/event/stats`)
+    .then(res => {
+      this.stats = res.data
+    })
   }
 
 
