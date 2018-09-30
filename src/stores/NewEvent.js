@@ -8,6 +8,7 @@ const API = ENV('apiDomain')
 
 class NewEvent {
   constructor () {
+    this._submitted = false
     this.handleError = this.handleError.bind(this)
   }
   @observable title = false

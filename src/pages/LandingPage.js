@@ -33,7 +33,7 @@ const EventPreview = ({id, title, shortDescription, url, time, dateTime, city}) 
   <div className={'EventPreview '+isPast(dateTime)} key={id}>
     <Header as='h3'>
       <a href={url} target='_blank'>
-        {moment(time, 'H:mm').isValid() ? moment(time, 'H:mm').format('h:mma') : null} - {title}
+        {moment(time, 'H:mm').isValid() ? moment(time, 'H:mm').format('h:mma') : moment(dateTime, 'H:mm').format('h:mma')} - {title}
       </a>
     </Header>
     <p>{shortDescription}</p>
