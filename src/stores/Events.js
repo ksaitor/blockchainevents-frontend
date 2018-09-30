@@ -21,8 +21,7 @@ class Events {
     get(`${API}/event/thisWeek`)
     // get(`https://api.blockchainevent.co/event/thisWeek`)
     .then(res => {
-      console.log(res)
-      this.events = res.data
+      this.events = res.data.events
       this._loading = false
     })
     .catch(this.handleError)
