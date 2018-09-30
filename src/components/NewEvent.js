@@ -7,6 +7,7 @@ import moment from 'moment'
 import { post } from 'axios'
 import { observer, inject } from 'mobx-react'
 import { Container, Grid } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 import { Header, Label, Divider, Image, Message, Button, Segment, Icon } from 'semantic-ui-react'
 import { Form, Radio } from 'formsy-semantic-ui-react'
 import MaskedInput from 'react-text-mask'
@@ -46,6 +47,9 @@ class NewEvent extends React.Component {
             <Image src="https://reactiongifs.me/wp-content/uploads/2013/10/i-wingman-successfully-leonardo-dicaprio.gif" centered rounded size='massive' />
             <Divider horizontal />
             <center>
+              <Button as={Link} to='/' content={<span>
+                <Icon name="arrow left" /> Home
+              </span>} size='huge' />
               <Button content={<span>
                 Submit another Event <Icon name="arrow right" />
               </span>} size='huge' color='green' onClick={newEvent} />
